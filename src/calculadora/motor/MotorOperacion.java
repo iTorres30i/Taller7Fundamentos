@@ -4,7 +4,7 @@ import calculadora.operaciones.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MotorOperacion {
+public class MotorOperacion implements IMotorBinario, IMotorUnario {
     private Map<String, OperacionBinaria> operacionesBinarias;
     private Map<String, OperacionUnaria> operacionesUnarias;
 
