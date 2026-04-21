@@ -1,27 +1,27 @@
 package calculadora.motor;
 
-import calculadora.operaciones.Operacion;
+import calculadora.operaciones.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MotorOperacion {
-    private Map<String, Operacion.OperacionBinaria> operacionesBinarias;
-    private Map<String, Operacion.OperacionUnaria> operacionesUnarias;
+    private Map<String, OperacionBinaria> operacionesBinarias;
+    private Map<String, OperacionUnaria> operacionesUnarias;
 
     public MotorOperacion() {
         operacionesBinarias = new HashMap<>();
-        operacionesBinarias.put("+", new Operacion.Suma());
-        operacionesBinarias.put("-", new Operacion.Resta());
-        operacionesBinarias.put("*", new Operacion.Multiplicacion());
-        operacionesBinarias.put("/", new Operacion.Division());
+        operacionesBinarias.put("+", new Suma());
+        operacionesBinarias.put("-", new Resta());
+        operacionesBinarias.put("*", new Multiplicacion());
+        operacionesBinarias.put("/", new Division());
 
         operacionesUnarias = new HashMap<>();
-        operacionesUnarias.put("sqrt", new Operacion.RaizCuadrada());
-        operacionesUnarias.put("ln", new Operacion.LogaritmoNatural());
+        operacionesUnarias.put("sqrt", new RaizCuadrada());
+        operacionesUnarias.put("ln", new LogaritmoNatural());
     }
 
     public double ejecutarBinaria(String op, int a, int b) {
-        Operacion.OperacionBinaria operacion = operacionesBinarias.get(op);
+        OperacionBinaria operacion = operacionesBinarias.get(op);
         if (operacion == null) {
             throw new IllegalArgumentException("Operación binaria no válida.");
         }
@@ -29,7 +29,7 @@ public class MotorOperacion {
     }
 
     public double ejecutarUnaria(String op, int a) {
-        Operacion.OperacionUnaria operacion = operacionesUnarias.get(op);
+        OperacionUnaria operacion = operacionesUnarias.get(op);
         if (operacion == null) {
             throw new IllegalArgumentException("Operación unaria no válida.");
         }
