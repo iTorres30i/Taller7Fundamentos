@@ -1,24 +1,23 @@
 # Calculadora SoLiD
 
-Este proyecto contiene una calculadora interactiva por consola desarrollada en Java (`Calculadora.java`). Está diseñada para demostrar cómo se pueden aplicar principios de diseño orientado a objetos (como SOLID) incluso cuando todo el código se mantiene dentro de un solo archivo.
+Este proyecto contiene una calculadora interactiva por consola desarrollada en Java, demostrando una separación clara de responsabilidades y aplicando los principios de diseño orientado a objetos (SOLID).
 
-## ¿Qué responsabilidad tiene la clase `Calculadora`?
+El código se divide en cinco archivos clave, cada uno con una responsabilidad única, cumpliendo fundamentalmente con el **Principio de Responsabilidad Única (SRP)**:
 
-Aunque comúnmente el principio de Responsabilidad Única (SRP por sus siglas en inglés) nos dice que cada módulo o clase debe tener una sola razón para cambiar, en este ejercicio todo el código de la calculadora reside en un único archivo.
+1. **`Validacion.java`**: 
+   - **Responsabilidad:** Encargada de gestionar y validar la entrada de datos (por ejemplo, asegurar que el usuario ingrese números enteros válidos y capturar `NumberFormatException`).
 
-Para cumplir con buenas prácticas dentro de esta restricción, hemos dividido internamente las responsabilidades mediante **interfaces y clases anidadas**:
+2. **`Operacion.java`**:
+   - **Responsabilidad:** Define el contrato para las diferentes operaciones matemáticas y contiene las clases de implementación.
+   - Aplica el **Principio Abierto/Cerrado (OCP)** y el de **Sustitución de Liskov e Inversión de Dependencias**, definiendo interfaces base (`OperacionBinaria`, `OperacionUnaria`) para que nuevas operaciones (`Suma`, `Resta`, `RaizCuadrada`, etc.) se puedan añadir sin alterar el código existente.
 
-### 1. Clases de Operaciones (Single Responsibility y Open/Closed Principle)
-Las clases estáticas anidadas como `Suma`, `Resta`, `Division`, `RaizCuadrada`, etc., tienen **una única responsabilidad**: ejecutar su respectiva operación matemática. Si se necesita implementar una nueva operación (como una potencia), se puede crear una nueva clase anidada que implemente la interfaz correspondiente, sin tener que modificar el código de las operaciones existentes (abierto a la extensión, cerrado a la modificación).
+3. **`MotorOperacion.java`**:
+   - **Responsabilidad:** Actúa como el "motor" lógico de la calculadora.
+   - Gestiona un registro (Mapas internos) de qué operación corresponde a cada símbolo (`+`, `-`, `sqrt`, etc.) y expone métodos para ejecutar dichas operaciones de forma abstracta, pasándoles los parámetros necesarios.
 
-### 2. Interfaces `OperacionBinaria` y `OperacionUnaria` (Interface Segregation y Liskov Substitution)
-Definen contratos claros para las operaciones que requieren dos números enteros frente a las que solo requieren uno. De esta forma, cada operación implementa solo los métodos que realmente necesita.
+4. **`Menu.java`**:
+   - **Responsabilidad:** Manejar única y exclusivamente la Interfaz de Usuario (UI) en consola. 
+   - Imprime los mensajes, lee lo que digita el usuario y delega las operaciones lógicas al `MotorOperacion`, además de atrapar excepciones que reportar al usuario.
 
-### 3. Clase Principal `Calculadora` (Responsabilidad de Coordinación y Entrada/Salida)
-La responsabilidad principal de la clase envolvente `Calculadora` y su método `main` no es hacer cálculos matemáticos, sino:
-*   **Orquestar la aplicación:** Configurar el mapa de operaciones disponibles (actuando como un pequeño Registro o pseudo-Fábrica).
-*   **Interactuar con el usuario:** Mostrar el menú, leer la entrada por consola.
-*   **Manejo de Errores:** Capturar y reportar excepciones de manera amigable (como dividir por cero).
-*   **Delegar:** Llama al método `ejecutar()` de la operación correspondiente elegida por el usuario.
-
-De esta forma, en vez de tener un gigantesco `switch-case` (el cual viola el principio Abierto/Cerrado), la aplicación está altamente desacoplada y se apoya en el polimorfismo.
+5. **`Calculadora.java`**:
+   - **Responsabilidad:** Es la clase principal y punto de entrada al programa (`main`). Se enfoca simplemente en ensamblar o construir los objetos base (`MotorOperacion` y `Menu`) y dar inicio al ciclo del menú.
