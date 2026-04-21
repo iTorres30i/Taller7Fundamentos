@@ -1,6 +1,6 @@
 package calculadora.operaciones;
 
-public class RaizCuadrada extends OperacionUnaria {
+public class RaizCuadrada implements OperacionUnaria, Identificable {
     @Override
     public String getSimbolo() { return "sqrt"; }
     

@@ -1,6 +1,6 @@
 package calculadora.operaciones;
 
-public class LogaritmoNatural extends OperacionUnaria {
+public class LogaritmoNatural implements OperacionUnaria, Identificable {
     @Override
     public String getSimbolo() { return "ln"; }
     

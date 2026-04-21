@@ -1,6 +1,6 @@
 package calculadora.operaciones;
 
-public class Resta extends OperacionBinaria {
+public class Resta implements OperacionBinaria, Identificable {
     @Override
     public String getSimbolo() { return "-"; }
     

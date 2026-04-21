@@ -1,7 +1,6 @@
 package calculadora.operaciones;
 
-public abstract class OperacionUnaria {
-    public abstract String getSimbolo();
-    public abstract boolean esValido(int a);
-    public abstract double ejecutar(int a);
+public interface OperacionUnaria {
+    boolean esValido(int a);
+    double ejecutar(int a);
 }

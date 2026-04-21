@@ -1,6 +1,6 @@
 package calculadora.operaciones;
 
-public class Suma extends OperacionBinaria {
+public class Suma implements OperacionBinaria, Identificable {
     @Override
     public String getSimbolo() { return "+"; }
     

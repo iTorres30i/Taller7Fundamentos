@@ -1,6 +1,6 @@
 package calculadora.operaciones;
 
-public class Division extends OperacionBinaria {
+public class Division implements OperacionBinaria, Identificable {
     @Override
     public String getSimbolo() { return "/"; }
     
