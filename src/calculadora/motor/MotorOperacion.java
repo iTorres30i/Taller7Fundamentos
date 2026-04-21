@@ -25,6 +25,12 @@ public class MotorOperacion {
         if (operacion == null) {
             throw new IllegalArgumentException("Operación binaria no válida.");
         }
+        
+        // Verificación basada en contrato abstracto (Cumpliendo Liskov)
+        if (!operacion.sonValidos(a, b)) {
+            throw new ArithmeticException("Valores no válidos para la operación de '" + op + "'.");
+        }
+        
         return operacion.ejecutar(a, b);
     }
 
@@ -33,6 +39,12 @@ public class MotorOperacion {
         if (operacion == null) {
             throw new IllegalArgumentException("Operación unaria no válida.");
         }
+        
+        // Verificación basada en contrato abstracto (Cumpliendo Liskov)
+        if (!operacion.esValido(a)) {
+             throw new ArithmeticException("Valores no válidos para la operación de '" + op + "'.");
+        }
+        
         return operacion.ejecutar(a);
     }
 }
